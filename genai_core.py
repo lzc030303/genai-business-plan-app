@@ -16,9 +16,10 @@ def generate_business_plan(idea: str) -> str:
     """
 
     response = client.chat.completions.create(
-        model="deepseek/deepseek-r1-0528-qwen3-8b:free",    
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0.7,
-        max_tokens=800,
-    )
+    model="openrouter/deepseek-r1-0528-qwen3-8b",
+    messages=[{"role": "user", "content": prompt}],
+    temperature=0.7,
+    max_tokens=800
+)
+
     return response.choices[0].message.content
