@@ -2,7 +2,7 @@ import os
 from openai import OpenAI
 
 client = OpenAI(
-    api_key=os.getenv("or-v1-070e9dffd836762f7e7a77efdcb1dd6cb9bd12fa714c8afbc8bed2f2e7c53f38"),  # your real OpenRouter key
+    api_key=os.getenv("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"),  # your real OpenRouter key
     base_url="https://openrouter.ai/api/v1"
 )
 
@@ -16,7 +16,7 @@ def generate_business_plan(idea: str) -> str:
     """
 
     response = client.chat.completions.create(
-    model="openrouter/deepseek-r1-0528-qwen3-8b",
+    model="meta-llama/llama-4-maverick:free",
     messages=[{"role": "user", "content": prompt}],
     temperature=0.7,
     max_tokens=800
