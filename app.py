@@ -1,34 +1,40 @@
 import streamlit as st
 from genai_core import generate_business_plan
 
-st.set_page_config(page_title="Startup Co-Founder AI")
+st.title("🚀 Startup Idea Generator")
 
-st.title("💡 Startup Co-Founder Assistant")
-st.write("Generate startup insights using GenAI!")
+idea = st.text_input("Enter your startup idea")
 
-idea = st.text_input("Enter your startup idea:")
+mode = st.selectbox(
+    "Choose what you want to generate:",
+    [
+        "💼 Full Business Plan",
+        "📛 Startup Name Ideas",
+        "📊 Competitor Analysis",
+        "💡 Feature Suggestions",
+        "💰 Monetization Strategy"
+    ]
+)
 
-mode = st.selectbox("What do you want to generate?", [
-    "💼 Full Business Plan",
-    "📛 Startup Name Ideas",
-    "📊 Competitor Analysis",
-    "💡 Feature Suggestions",
-    "💰 Monetization Strategy"
-])
+if st.button("Generate"):
+    if idea:
+        with st.spinner("Generating..."):
+            prompt = ""
 
-def build_prompt(idea, mode):
-    if mode == "💼 Full Business Plan":
-        return f"""You are a startup consultant. Based on the idea: "{idea}", write a full business plan including:
-- Problem
-- Target Market
-- Unique Value
-- Monetization
-- Go-to-Market"""
-    elif mode == "📛 Startup Name Ideas":
-        return f"Suggest 5 creative and relevant startup names for this idea: \"{idea}\"."
-    elif mode == "📊 Competitor Analysis":
-        return f"What companies already exist in this space: \"{idea}\"? Give a brief analysis."
-    elif mode == "💡 Feature Suggestions":
-        return f"List 5 MVP features for a product based on: \"{idea}\"."
-    elif mode == "💰 Monetization Strategy":
-        return f"Suggest 3 ways to make money from this"
+            if "Full Business Plan" in mode:
+                prompt = f"Write a detailed business plan for this idea: {idea}"
+            elif "Startup Name" in mode:
+                prompt = f"Suggest 10 creative startup names for this idea: {idea}"
+            elif "Competitor Analysis" in mode:
+                prompt = f"Give a competitor analysis for this idea: {idea}"
+            elif "Feature Suggestions" in mode:
+                prompt = f"List the most important features to include for: {idea}"
+            elif "Monetization Strategy" in mode:
+                prompt = f"Suggest 3 ways to make money from this idea: {idea}"
+
+            result = generate_business_plan(prompt)
+            st.markdown("### Result")
+            st.write(result)
+    else:
+        st.warning("Please enter your startup idea above.")
+
