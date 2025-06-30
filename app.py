@@ -31,4 +31,4 @@ def build_prompt(idea, mode):
     elif mode == "💡 Feature Suggestions":
         return f"List 5 MVP features for a product based on: \"{idea}\"."
     elif mode == "💰 Monetization Strategy":
-        return f"Suggest 3 ways to make money from thi
+        return f"Suggest 3 ways to make money from this"
